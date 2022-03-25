@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="divId"></div>
+    <input id="inputId" type="text" placeholder="请输入内容" />
+    <button id="bottomId">发送</button>
+
+    <script>
+      const ws = new WebSocket("ws://localhost:8000");
+      // 打开链接
+      ws.addEventListener("open", () => {
+        divId.innerText = "链接成功";
+      });
+
+      // 接收信息
+      ws.addEventListener("message", ({data}) => {
+        console.log(data)
+        divId.innerText = data;
+      })
+
+      bottomId.onclick = () => {
+        // 发生信息
+        ws.send(inputId.value);
+      }
+    </script>
+  </body>
+</html>
